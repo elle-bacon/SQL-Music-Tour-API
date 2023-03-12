@@ -1,19 +1,7 @@
 // DEPENDENCIES
 const express = require('express')
 const app = express()
-
-// SEQUELIZE CONNECTION
-const sequelize = new Sequelize(process.env.PG_URI)
-
-try {
-    sequelize.authenticate() 
-    console.log(`Connected with Sequelize at ${process.env.PG_URI}`) 
-} catch(err) {
-    console.log(`Unable to connect to PG: ${err}`) 
-}
-
-
-
+const { testSequelize } = require('./db')
 
 // CONFIGURATION / MIDDLEWARE
 require('dotenv').config()
@@ -28,6 +16,8 @@ app.get('/', (req, res) => {
 })
 
 // LISTEN
+testSequelize();
+
 app.listen(process.env.PORT, () => {
     console.log(`🎸 Rockin' on port: ${process.env.PORT}`)
 })
